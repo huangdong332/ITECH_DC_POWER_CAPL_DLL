@@ -48,6 +48,10 @@ This CAPL dll is built with a MinGW gcc tools for 32bit Windows target. The 64bi
 I use msys64 to install MinGW and Make.
 ```
 
+Instrument Driver
+
+[NIVISA](https://www.ni.com/en-us/support/downloads/drivers/download.ni-visa.html) and [NIIPC](https://www.ni.com/en-us/support/downloads/drivers/download.ivi-compliance-package.html) driver package should be installed on your machine.
+
 ## 🎈 Usage <a name="usage"></a>
 
 There is an example code in CAPL. In this test case, a ITECH DC power supply's voltage is set to 5V.After 5 seconds,its output is truned ON. After 5 seconds, its voltage is adjusted to 10V. After 5 seconds, its voltage and current are queried and its voltage is adjusted to 800mV. After 5 seconds, its output is turned off.
