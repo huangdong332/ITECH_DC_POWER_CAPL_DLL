@@ -1,3 +1,13 @@
+/**
+ * @file usbtmc.c
+ * @author Huang Dong (dohuang@borgwarner.com)
+ * @brief 
+ * @version 0.1
+ * @date 2023-05-26
+ * 
+ * @copyright Copyright (c) 2023 MIT
+ * 
+ */
 /********************************************************************/
 /*                Read and Write to a USBTMC Instrument             */
 /*                                                                  */
@@ -42,6 +52,14 @@ static char instrResourceString[VI_FIND_BUFLEN];
 static unsigned char buffer[100];
 static char stringinput[512];
 
+/**
+ * @brief Deprecated. This func control an ITECH DC power's output.
+ * 
+ * @param state Output state.
+ *              0: close;
+ *              1: open.
+ * @return int 
+ */
 int ItechDcPowerOutput(unsigned char state)
 {
     int i;
@@ -153,6 +171,12 @@ int ItechDcPowerOutput(unsigned char state)
     return 0;
 }
 
+/**
+ * @brief Write a standard SIPC command to an ITECH DC power supply.
+ * 
+ * @param command SIPC command string.
+ * @return int 
+ */
 int ItechDcPowerWrite(char* command)
 {
     int i;
@@ -261,6 +285,14 @@ int ItechDcPowerWrite(char* command)
     return 0;
 }
 
+/**
+ * @brief Write a query command to an ITECH DC power supply and read back its reply.
+ * 
+ * @param command SIPC query command string.
+ * @param resultString Buffer to save a reply string.
+ * @param result Numberic reply will also be saved in this buffer.
+ * @return int 
+ */
 int ItechDcPowerQuery(char* command, char *resultString,  double *result)
 {
     int i;

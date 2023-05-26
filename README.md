@@ -57,18 +57,23 @@ testcase TurnOnAndOff()
 {
   char resultString[100];
   float result;
+  //Set output voltage to 5V.
   dllItechDcPowerWrite("VOLT 5V");
   testWaitForTimeout(5000);
+  //Set output state to  ON.
   dllItechDcPowerWrite("OUTP 1");
   testWaitForTimeout(5000);
   dllItechDcPowerWrite("VOLT 10V");
   testWaitForTimeout(5000);
+  //Measure output voltage, numberic result saved in "result".
   dllItechDcPowerQuery("MEAS:VOLT?",resultString,result);
   write("Measured voltage: %f",result);
+  //Measure output current, numberic result saved in "result".
   dllItechDcPowerQuery("MEAS:CURR?",resultString,result);
   write("Measured current: %f",result);
   dllItechDcPowerWrite("VOLT 800mV");
   testWaitForTimeout(5000);
+  //Set output state to  OFF.
   dllItechDcPowerWrite("OUTP 0");
   
 }
