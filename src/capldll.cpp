@@ -36,6 +36,7 @@
 #include "VIA.h"
 #include "VIA_CDLL.h"
 #include "usbtmc.h"
+#include "RdWrtSrl.h"
 
 
 #include <stdint.h>
@@ -594,6 +595,16 @@ void CAPLEXPORT CAPLPASCAL appItechDcPowerQuery(char* command , char *resultStri
 {
   ItechDcPowerQuery(command,resultString,result);
 }
+
+void CAPLEXPORT CAPLPASCAL appItechDcPowerWriteSerial(char* command )
+{
+  ItechDcPowerWriteSerial(command);
+}
+
+void CAPLEXPORT CAPLPASCAL appItechDcPowerQuerySerial(char* command , char *resultString, double *result)
+{
+  ItechDcPowerQuerySerial(command,resultString,result);
+}
 // ============================================================================
 // CAPL_DLL_INFO_LIST : list of exported functions
 //   The first field is predefined and mustn't be changed!
@@ -620,8 +631,10 @@ CAPL_DLL_INFO4 table[] = {
   {"dllAdd63Parameters", (CAPL_FARCALL)appAddValues63,  "CAPL_DLL", "This function will add 63 values. The return value is the result",'L', 63, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",  "", {"val01","val02","val03","val04","val05","val06","val07","val08","val09","val10","val11","val12","val13","val14","val15","val16","val17","val18","val19","val20","val21","val22","val23","val24","val25","val26","val27","val28","val29","val30","val31","val32","val33","val34","val35","val36","val37","val38","val39","val40","val41","val42","val43","val44","val45","val46","val47","val48","val49","val50","val51","val52","val53","val54","val55","val56","val57","val58","val59","val60","val61","val62","val63"}},
   {"dllAdd64Parameters", (CAPL_FARCALL)appAddValues64,  "CAPL_DLL", "This function will add 64 values. The return value is the result",'L', 64, {SixtyFourLongPars},                                                "", {"val01","val02","val03","val04","val05","val06","val07","val08","val09","val10","val11","val12","val13","val14","val15","val16","val17","val18","val19","val20","val21","val22","val23","val24","val25","val26","val27","val28","val29","val30","val31","val32","val33","val34","val35","val36","val37","val38","val39","val40","val41","val42","val43","val44","val45","val46","val47","val48","val49","val50","val51","val52","val53","val54","val55","val56","val57","val58","val59","val60","val61","val62","val63","val64"}},
   // {"dllItechDcPowerOutput", (CAPL_FARCALL)appItechDcPowerOutput,  "ITECHDC", "This function will set output state of a ITECH DC power.",'V', 1, "D", "", {"state"}},
-  {"dllItechDcPowerWrite", (CAPL_FARCALL)appItechDcPowerWrite,  "ITECHDC", "This function will write a SCPI command to a ITECH DC power.",'V', 1, "C", "\001", {"command"}},
-  {"dllItechDcPowerQuery", (CAPL_FARCALL)appItechDcPowerQuery,  "ITECHDC", "This function will query a SCPI command to a ITECH DC power.",'V', 3, {'C','C','F'-128}, "\001\001\000", {"command","resultString","result"}},
+  {"dllItechDcPowerWrite", (CAPL_FARCALL)appItechDcPowerWrite,  "ITECHDC", "This function will write a SCPI command to a ITECH DC power through USB port.",'V', 1, "C", "\001", {"command"}},
+  {"dllItechDcPowerQuery", (CAPL_FARCALL)appItechDcPowerQuery,  "ITECHDC", "This function will query a SCPI command to a ITECH DC power through USB port.",'V', 3, {'C','C','F'-128}, "\001\001\000", {"command","resultString","result"}},
+  {"dllItechDcPowerWriteSerial", (CAPL_FARCALL)appItechDcPowerWriteSerial,  "ITECHDC", "This function will write a SCPI command to a ITECH DC power through RS232 port.",'V', 1, "C", "\001", {"command"}},
+  {"dllItechDcPowerQuerySerial", (CAPL_FARCALL)appItechDcPowerQuerySerial,  "ITECHDC", "This function will query a SCPI command to a ITECH DC power through RS232 port.",'V', 3, {'C','C','F'-128}, "\001\001\000", {"command","resultString","result"}},
 
 {0, 0}
 };
