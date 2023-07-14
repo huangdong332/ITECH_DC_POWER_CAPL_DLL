@@ -34,6 +34,10 @@ The only two APIs(dllItechDcPowerWrite & dllItechDcPowerQuery) in this dll are i
 The standard SCPI command can be send to an ITECH device through those two APIs by the way controlling this device.
 The supported SCPI commands can be found in the device's document normally named "One's programming guide".
 
+### Communication Interface
+
+USB and RS232 are both supported now.
+
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
@@ -51,6 +55,8 @@ I use msys64 to install MinGW and Make.
 ## 🎈 Usage <a name="usage"></a>
 
 There is an example code in CAPL. In this test case, a ITECH DC power supply's voltage is set to 5V.After 5 seconds,its output is truned ON. After 5 seconds, its voltage is adjusted to 10V. After 5 seconds, its voltage and current are queried and its voltage is adjusted to 800mV. After 5 seconds, its output is turned off.
+
+### USB
 
 ```
 testcase TurnOnAndOff()
@@ -77,6 +83,33 @@ testcase TurnOnAndOff()
   dllItechDcPowerWrite("OUTP 0");
   
 }
+```
+
+### RS232
+
+```
+testcase test()
+ {
+  char resultString[100];
+  float result;
+  //!!!IMPORTANT!!!
+  //Must be the first step in case of RS232.
+  //This SCPI command enables reomte control.
+  dllItechDcPowerWriteSerial("SYST:REM");
+  dllItechDcPowerWriteSerial("VOLT 5V");
+  testWaitForTimeout(5000);
+  dllItechDcPowerWriteSerial("OUTP 1");
+  testWaitForTimeout(5000);
+  dllItechDcPowerWriteSerial("VOLT 10V");
+  testWaitForTimeout(5000);
+  dllItechDcPowerQuerySerial("MEAS:VOLT?",resultString,result);
+  write("Measured voltage: %f",result);
+  dllItechDcPowerQuerySerial("MEAS:CURR?",resultString,result);
+  write("Measured current: %f",result);
+  dllItechDcPowerWriteSerial("VOLT 800mV");
+  testWaitForTimeout(5000);
+  dllItechDcPowerWriteSerial("OUTP 0");
+ }
 ```
 
 ## ⛏️ Built Using <a name = "built_using"></a>
